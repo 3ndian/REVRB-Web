@@ -12,37 +12,57 @@
 html,body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.35 -apple-system,system-ui,Roboto,sans-serif}
 body{padding:env(safe-area-inset-top) 14px calc(env(safe-area-inset-bottom) + 24px);max-width:520px;margin:0 auto}
 h1{font-size:13px;letter-spacing:.18em;font-weight:800;margin:14px 2px 10px;color:var(--dim)}
-.stage{position:relative;width:100%;border-radius:22px;overflow:hidden;background:#0b0d0e;border:1px solid var(--line);aspect-ratio:3/4}
+.stage{position:relative;width:min(100%,calc(56dvh*var(--ar,.75)));margin:0 auto;border-radius:22px;overflow:hidden;background:#0b0d0e;border:1px solid var(--line);aspect-ratio:3/4}
 .stage video,.stage canvas{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;background:#000}
 .stage .msg{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;padding:24px;color:var(--dim)}
-.flash{position:absolute;inset:0;background:#fff;opacity:0;pointer-events:none;transition:opacity .25s}
+.flash{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 45%,rgba(255,250,240,.55),rgba(255,244,228,.95) 100%);opacity:0;pointer-events:none;transition:none;z-index:2}
 .badge{position:absolute;left:12px;top:12px;padding:5px 10px;border-radius:12px;background:rgba(0,0,0,.6);font-size:12px;letter-spacing:.08em}
-.row{display:flex;gap:10px;align-items:center;margin-top:12px}
+.row{display:flex;gap:12px;align-items:center;margin-top:14px}
+.chips{gap:10px!important}
+.row.stack{flex-direction:column;align-items:stretch}
 .row.c{justify-content:center}
-button,select,label.btn{font:inherit;color:var(--ink);background:var(--panel);border:1.5px solid var(--line);border-radius:14px;padding:11px 14px;min-height:46px}
+button,select,label.btn{font:inherit;font-size:16px;color:var(--ink);background:var(--panel);border:1.5px solid var(--line);border-radius:18px;padding:14px 18px;min-height:56px;touch-action:manipulation;user-select:none;-webkit-user-select:none}
+button:active,label.btn:active,a.dl:active{transform:scale(.97);filter:brightness(1.15)}
 button.pri,label.pri{background:var(--acc);color:var(--onacc);border-color:var(--acc);font-weight:800}
 button:disabled{opacity:.4}
-button.chip{padding:8px 12px;min-height:38px;border-radius:19px}
+button.chip{padding:10px 16px;min-height:48px;border-radius:24px;font-size:15px}
 button.chip.on{border-color:var(--acc);color:var(--acc)}
 label.btn{display:inline-flex;align-items:center;justify-content:center}
 input[type=file]{display:none}
-.shutter{width:76px;height:76px;border-radius:50%;border:3px solid #fff;background:transparent;padding:0;display:flex;align-items:center;justify-content:center}
-.shutter i{display:block;width:60px;height:60px;border-radius:50%;background:#f4f6f4}
+.shutter{width:96px;height:96px;min-height:96px;border-radius:50%;border:4px solid #fff;background:transparent;padding:0;display:flex;align-items:center;justify-content:center}
+.shutter i{display:block;width:76px;height:76px;border-radius:50%;background:#f4f6f4;transition:transform .1s}
+.shutter:active i{transform:scale(.88)}
+.shutter:active{transform:none;filter:none}
+.round{width:64px;height:64px;min-height:64px;padding:0;border-radius:50%;display:flex;align-items:center;justify-content:center;flex:none}
+.round svg{width:28px;height:28px}
+.bigcta{width:100%;min-height:64px;font-size:18px;border-radius:22px}
+.shootbar{position:absolute;left:0;right:0;bottom:0;padding:34px 16px 16px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;background:linear-gradient(0deg,rgba(0,0,0,.55),rgba(0,0,0,0));z-index:3}
+.shootbar .round{background:rgba(16,18,19,.62);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+details.more{margin-top:14px}
+details.more summary{list-style:none;cursor:pointer;min-height:56px;display:flex;align-items:center;justify-content:space-between;padding:0 18px;border-radius:18px;background:var(--panel);border:1.5px solid var(--line);font-size:16px}
+details.more summary::-webkit-details-marker{display:none}
+details.more summary:after{content:'+';font-size:22px;color:var(--dim)}
+details.more[open] summary:after{content:'\2212'}
+details.more .opts{margin-top:14px}
+.shootbar>:first-child{justify-self:start}.shootbar>:last-child{justify-self:end}
 .shutter:disabled{opacity:.4}
 .grow{flex:1}
 .panel{margin-top:14px;background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:14px}
-.sl{display:grid;grid-template-columns:92px 1fr 40px;gap:8px;align-items:center;margin:8px 0}
+.sl{display:grid;grid-template-columns:84px 1fr 44px;gap:10px;align-items:center;margin:4px 0;min-height:52px}
 .sl span{font-size:11px;letter-spacing:.12em;color:var(--dim);font-weight:700}
 .sl output{text-align:right;font-variant-numeric:tabular-nums;color:var(--ink)}
-input[type=range]{width:100%;accent-color:#9DF2A5;height:30px}
+input[type=range]{width:100%;accent-color:#9DF2A5;height:52px;margin:0;touch-action:pan-y}
 .chips{display:flex;gap:8px;flex-wrap:wrap}
 .small{font-size:12px;color:var(--dim)}
-.opts{display:grid;grid-template-columns:1fr 1fr;gap:10px 12px;margin-top:14px}
-.opts label{display:flex;flex-direction:column;gap:4px;font-size:11px;letter-spacing:.12em;color:var(--dim);font-weight:700}
-.opts select{width:100%;letter-spacing:0;font-weight:400}
+.opts{display:flex;flex-direction:column;gap:14px;margin-top:18px}
+.opts label{display:flex;flex-direction:column;gap:6px;font-size:11px;letter-spacing:.14em;color:var(--dim);font-weight:700}
+.opts select{display:none}
+.seg{display:flex;gap:6px;padding:5px;border-radius:20px;background:var(--panel);border:1.5px solid var(--line)}
+.seg button{flex:1;min-width:0;min-height:48px;padding:0 4px;border:0;border-radius:15px;background:transparent;font-size:15px;color:var(--dim);font-weight:600}
+.seg button.on{background:var(--acc);color:var(--onacc);font-weight:800}
 .out{margin-top:14px;text-align:center}
 .out img,.out video{max-width:100%;border-radius:16px;border:1px solid var(--line)}
-a.dl{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;color:var(--ink);background:var(--panel);border:1.5px solid var(--line);border-radius:14px;padding:11px 14px;min-height:46px}
+a.dl{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;color:var(--ink);background:var(--panel);border:1.5px solid var(--line);border-radius:18px;padding:14px 18px;min-height:56px;font-size:16px}
 .hide{display:none!important}
 #status{min-height:20px;margin-top:10px;color:var(--dim);font-size:13px;text-align:center}
 </style>
@@ -56,48 +76,50 @@ a.dl{display:inline-flex;align-items:center;justify-content:center;text-decorati
   <div class="msg" id="msg">Tap Start camera. If the camera does not open, use Pick photos.</div>
   <div class="badge hide" id="badge"></div>
   <div class="flash" id="flash"></div>
+  <div class="shootbar hide" id="shootRow">
+    <button id="flip" class="round" aria-label="Flip camera"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 7h-3l-2-2H9L7 7H4a1 1 0 00-1 1v10a1 1 0 001 1h16a1 1 0 001-1V8a1 1 0 00-1-1z"/><path d="M9.5 13a2.5 2.5 0 014.2-1.8M14.5 13a2.5 2.5 0 01-4.2 1.8"/></svg></button>
+    <button id="shutter" class="shutter" aria-label="Burst"><i></i></button>
+    <label class="btn round" for="pick" aria-label="Pick photos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="3"/><circle cx="9" cy="10" r="1.6"/><path d="M21 16l-5-5-8 8"/></svg></label>
+  </div>
 </div>
 
 <div id="status"></div>
 
 <!-- camera controls -->
 <div id="camBar">
-  <div class="row c">
-    <button id="start" class="pri">Start camera</button>
-    <label class="btn" for="pick">Pick photos</label>
-    <input id="pick" type="file" accept="image/*" multiple>
+  <div class="row stack" id="startRow">
+    <button id="start" class="pri bigcta">Start camera</button>
+    <label class="btn bigcta" for="pick" style="display:flex;align-items:center;justify-content:center">Pick photos instead</label>
   </div>
-  <div class="row c hide" id="shootRow">
-    <button id="flip" aria-label="Flip camera">Flip</button>
-    <button id="shutter" class="shutter" aria-label="Burst"><i></i></button>
-    <div style="width:64px"></div>
+  <input id="pick" type="file" accept="image/*" multiple>
+  <div class="opts" style="margin-top:14px">
+    <label>Frames<select id="nFrames" class="segsrc"><option>3</option><option>6</option><option selected>9</option><option>12</option><option>15</option></select></label>
   </div>
+  <details class="more"><summary>More settings</summary>
   <div class="opts">
-    <label>Frames<select id="nFrames"><option>3</option><option>4</option><option selected>5</option><option>6</option><option>8</option><option>10</option></select></label>
-    <label>Size<select id="size"><option value="540">Small</option><option value="720" selected>Medium</option><option value="1080">Large (slow)</option></select></label>
-    <label>Gap<select id="gap"><option value="0">fastest</option><option value="80">80 ms</option><option value="150" selected>150 ms</option><option value="300">300 ms</option><option value="600">600 ms</option></select></label>
-    <label>Timer<select id="timer"><option value="0" selected>off</option><option value="3">3 s</option><option value="5">5 s</option></select></label>
-  </div>
+    <label>Size<select id="size" class="segsrc"><option value="540">Small</option><option value="720" selected>Medium</option><option value="1080">Large</option></select></label>
+    <label>Gap between frames<select id="gap" class="segsrc"><option value="0">Fastest</option><option value="66">66 ms</option><option value="100" selected>100 ms</option><option value="200">200 ms</option><option value="400">400 ms</option></select></label>
+    <label>Timer<select id="timer" class="segsrc"><option value="0" selected>Off</option><option value="3">3 s</option><option value="5">5 s</option></select></label>
+  </div></details>
 </div>
 
 <!-- edit controls -->
 <div id="editBar" class="hide">
+  <div class="row stack">
+    <button id="expGif" class="pri bigcta">Make GIF</button>
+    <div class="row" style="margin-top:0"><button id="expVid" class="grow">Make video</button><button id="retake" class="grow">Retake</button></div>
+  </div>
+  <div class="out hide" id="out"></div>
   <div class="panel">
     <div class="chips" id="looks"></div>
     <div id="sliders"></div>
     <div class="row">
-      <span class="small" style="width:92px;letter-spacing:.12em;font-weight:700">LOOP</span>
+      <span class="small" style="width:84px;letter-spacing:.12em;font-weight:700">LOOP</span>
       <button class="chip on" id="loopPP">Ping-pong</button>
       <button class="chip" id="loopFw">Forward</button>
     </div>
   </div>
-  <div class="row c">
-    <button id="retake">Retake</button>
-    <button id="expGif" class="pri grow">Make GIF</button>
-    <button id="expVid">Make video</button>
-  </div>
   <div class="row c small"><button class="chip on" id="dither">Smooth gradients in GIF</button></div>
-  <div class="out hide" id="out"></div>
 </div>
 
 <label id="hap" style="position:fixed;left:0;bottom:0;width:40px;height:40px;opacity:.01;pointer-events:none"><input type="checkbox" switch id="hapIn"></label>
@@ -106,36 +128,59 @@ a.dl{display:inline-flex;align-items:center;justify-content:center;text-decorati
 'use strict';
 const $ = (id) => document.getElementById(id);
 const live = $('live'), view = $('view'), vctx = view.getContext('2d', { willReadFrequently: true });
-const state = { stream: null, facing: 'environment', raw: [], proc: [], W: 0, H: 0, fps: 8, pingpong: true, timer: null, tick: 0, busy: false,
+const state = { stream: null, facing: 'environment', raw: [], proc: [], W: 0, H: 0, fps: 12, pingpong: true, timer: null, tick: 0, busy: false,
   p: { brightness: 0, contrast: 0, saturation: 0, warmth: 0, fade: 0, grain: 15 }, look: 'None', dither: true };
 
 function haptic() { try { document.getElementById('hap').click(); } catch (e) {} try { if (navigator.vibrate) navigator.vibrate(12); } catch (e) {} }
 function say(t) { $('status').textContent = t || ''; }
+function setAR(w, h) { $('stage').style.aspectRatio = w + '/' + h; $('stage').style.setProperty('--ar', (w / h).toFixed(4)); }
 function showMsg(t) { $('msg').textContent = t; $('msg').classList.remove('hide'); }
 
 /* ---------- camera ---------- */
-async function startCamera() {
+function streamLive() { return !!(state.stream && state.stream.getVideoTracks().some((t) => t.readyState === 'live')); }
+function releaseCamera() { clearTimeout(state.idleT); if (state.stream) state.stream.getTracks().forEach((t) => t.stop()); state.stream = null; live.srcObject = null; }
+async function showLive() {
+  clearTimeout(state.idleT);
+  try { await live.play(); } catch (e) {}
+  live.classList.remove('hide'); view.classList.add('hide'); $('msg').classList.add('hide');
+  $('shootRow').classList.remove('hide'); $('startRow').classList.add('hide');
+  $('camBar').classList.remove('hide'); $('editBar').classList.add('hide'); $('out').classList.add('hide'); $('out').innerHTML = '';
+  stopLoop(); say('');
+  setAR(live.videoWidth || 3, live.videoHeight || 4);
+}
+async function startCamera(fresh) {
   say('');
+  if (fresh !== true && streamLive()) { await showLive(); return; }
   if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) { showMsg('This browser has no camera access here. It needs https. Use Pick photos instead.'); return; }
   try {
     if (state.stream) state.stream.getTracks().forEach((t) => t.stop());
     state.stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: { ideal: state.facing }, width: { ideal: 1920 }, height: { ideal: 1440 } }, audio: false });
-    live.srcObject = state.stream;
+    live.srcObject = state.stream; state.usedCamera = true;
     await live.play();
     live.classList.remove('hide'); view.classList.add('hide'); $('msg').classList.add('hide');
-    $('shootRow').classList.remove('hide'); $('start').classList.add('hide');
+    $('shootRow').classList.remove('hide'); $('startRow').classList.add('hide');
     $('camBar').classList.remove('hide'); $('editBar').classList.add('hide');
     stopLoop();
-    $('stage').style.aspectRatio = (live.videoWidth || 3) + '/' + (live.videoHeight || 4);
+    setAR(live.videoWidth || 3, live.videoHeight || 4);
   } catch (e) {
     showMsg('Camera did not open: ' + (e && e.name ? e.name : e) + '. Check Settings > Safari > Camera, or use Pick photos.');
   }
 }
-$('start').onclick = startCamera;
-$('flip').onclick = () => { state.facing = state.facing === 'environment' ? 'user' : 'environment'; startCamera(); };
+$('start').onclick = () => startCamera();
+$('flip').onclick = () => { state.facing = state.facing === 'environment' ? 'user' : 'environment'; startCamera(true); };
 
 function sizeFor(vw, vh) { const W = Math.min(+$('size').value || 720, vw); return [W, Math.max(2, Math.round(W * vh / vw))]; }
 const wait = (ms) => new Promise((r) => setTimeout(r, ms));
+function onFreshFrame(fn) {
+  return new Promise((res) => {
+    if (live.requestVideoFrameCallback) live.requestVideoFrameCallback(() => res(fn()));
+    else requestAnimationFrame(() => res(fn()));
+  });
+}
+function pulseFlash() {
+  const f = $('flash'); f.style.transition = 'none'; f.style.opacity = .22;
+  requestAnimationFrame(() => requestAnimationFrame(() => { f.style.transition = 'opacity .45s ease-out'; f.style.opacity = 0; }));
+}
 
 $('shutter').onclick = async () => {
   if (state.busy || !live.videoWidth) return;
@@ -147,18 +192,24 @@ $('shutter').onclick = async () => {
   const [W, H] = sizeFor(live.videoWidth, live.videoHeight);
   state.W = W; state.H = H; view.width = W; view.height = H;
   const tmp = document.createElement('canvas'); tmp.width = W; tmp.height = H; const tctx = tmp.getContext('2d', { willReadFrequently: true }); tctx.imageSmoothingEnabled = true; tctx.imageSmoothingQuality = 'high';
-  const raw = [];
-  $('flash').style.opacity = .8; setTimeout(() => ($('flash').style.opacity = 0), 90);
+  const raw = [], stamps = [];
+  let last = 0;
   for (let i = 0; i < n; i++) {
-    const t0 = performance.now();
-    tctx.drawImage(live, 0, 0, W, H);
+    say('Frame ' + (i + 1) + ' of ' + n);
+    /* wait on the camera's own frames; take the first one that lands within half a frame of the chosen gap, and grab + flash inside that very callback, so the flash and the picture are the same moment */
+    let t = 0, took = false;
+    while (!took) {
+      t = await onFreshFrame(() => { const now = performance.now(); if (i === 0 || now >= last + gap - 22) { tctx.drawImage(live, 0, 0, W, H); pulseFlash(); took = true; } return now; });
+    }
+    stamps.push(t); last = t;
+    if (i === n - 1) haptic();
+    await new Promise((r) => requestAnimationFrame(() => setTimeout(r, 0)));   /* let the flash paint before the heavy copy */
     raw.push(tctx.getImageData(0, 0, W, H));
-    say('Frame ' + (i + 1) + ' of ' + n); if (i === n - 1) haptic();
-    const used = performance.now() - t0;
-    if (gap > used) await wait(gap - used); else await wait(0);
   }
+  const gaps = stamps.slice(1).map((v, k) => v - stamps[k]);
+  state.note = gaps.length ? 'Captured ' + n + ' frames, about ' + Math.round(gaps.reduce((x, y) => x + y, 0) / gaps.length) + ' ms apart' : '';
   state.busy = false; $('shutter').disabled = false;
-  openEditor(raw);
+  openEditor(raw); if (state.note) say(state.note);
 };
 
 /* ---------- photos instead of camera ---------- */
@@ -228,8 +279,9 @@ function order() {
 }
 function openEditor(raw) {
   state.raw = raw; state.proc = raw.map((f, i) => processFrame(f, state.p, i));
-  live.classList.add('hide'); view.classList.remove('hide'); $('msg').classList.add('hide');
-  $('stage').style.aspectRatio = state.W + '/' + state.H;
+  view.classList.remove('hide'); $('msg').classList.add('hide');
+  clearTimeout(state.idleT); state.idleT = setTimeout(() => { if (!state.busy) releaseCamera(); }, 120000);
+  setAR(state.W, state.H);
   $('camBar').classList.add('hide'); $('editBar').classList.remove('hide'); $('out').classList.add('hide'); $('out').innerHTML = '';
   $('badge').classList.remove('hide'); say('');
   startLoop();
@@ -274,7 +326,7 @@ function syncSliders() {
 $('loopPP').onclick = () => { state.pingpong = true; $('loopPP').classList.add('on'); $('loopFw').classList.remove('on'); startLoop(); };
 $('loopFw').onclick = () => { state.pingpong = false; $('loopFw').classList.add('on'); $('loopPP').classList.remove('on'); startLoop(); };
 $('dither').onclick = () => { state.dither = !state.dither; $('dither').classList.toggle('on', state.dither); save(); };
-$('retake').onclick = () => { stopLoop(); state.raw = []; state.proc = []; if (state.stream) startCamera(); else { view.classList.add('hide'); $('msg').classList.remove('hide'); $('camBar').classList.remove('hide'); $('editBar').classList.add('hide'); } };
+$('retake').onclick = () => { stopLoop(); state.raw = []; state.proc = []; if (streamLive()) showLive(); else if (state.usedCamera) startCamera(); else { view.classList.add('hide'); $('msg').classList.remove('hide'); $('camBar').classList.remove('hide'); $('editBar').classList.add('hide'); } };
 
 /* ---------- export ---------- */
 function offerFile(blob, name, kind) {
@@ -297,6 +349,7 @@ function offerFile(blob, name, kind) {
   const a = document.createElement('a'); a.className = 'dl'; a.href = url; a.download = name; a.textContent = 'Download'; row.appendChild(a);
   say((blob.size / 1024 / 1024).toFixed(2) + ' MB');
   out.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  try { out.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); } catch (e) {}
 }
 
 $('expGif').onclick = async () => {
@@ -342,15 +395,22 @@ $('expVid').onclick = async () => {
 
 /* ---------- remember settings ---------- */
 const KEYS = ['nFrames', 'gap', 'size', 'timer'];
-function save() { try { localStorage.setItem('revrbweb', JSON.stringify({ p: state.p, look: state.look, fps: state.fps, pingpong: state.pingpong, dither: state.dither, sel: KEYS.reduce((o, k) => (o[k] = $(k).value, o), {}) })); } catch (e) {} }
+function save() { try { localStorage.setItem('revrbweb2', JSON.stringify({ p: state.p, look: state.look, fps: state.fps, pingpong: state.pingpong, dither: state.dither, sel: KEYS.reduce((o, k) => (o[k] = $(k).value, o), {}) })); } catch (e) {} }
 function load() {
   try {
-    const d = JSON.parse(localStorage.getItem('revrbweb') || 'null'); if (!d) return;
-    Object.assign(state.p, d.p || {}); state.look = d.look || 'None'; state.fps = d.fps || 8; state.pingpong = d.pingpong !== false; state.dither = d.dither !== false;
-    KEYS.forEach((k) => { if (d.sel && d.sel[k] != null) $(k).value = d.sel[k]; });
+    const d = JSON.parse(localStorage.getItem('revrbweb2') || 'null'); if (!d) return;
+    Object.assign(state.p, d.p || {}); state.look = d.look || 'None'; state.fps = d.fps || 12; state.pingpong = d.pingpong !== false; state.dither = d.dither !== false;
+    KEYS.forEach((k) => { if (d.sel && d.sel[k] != null && Array.from($(k).options).some((o) => o.value === d.sel[k])) $(k).value = d.sel[k]; });
   } catch (e) {}
 }
 load(); buildUI();
+/* big segmented buttons instead of small drop-downs: same values, same saving */
+document.querySelectorAll('select.segsrc').forEach((sel) => {
+  const seg = document.createElement('div'); seg.className = 'seg'; seg.setAttribute('role', 'group');
+  const paint = () => Array.from(seg.children).forEach((b) => b.classList.toggle('on', b.dataset.v === sel.value));
+  Array.from(sel.options).forEach((o) => { const b = document.createElement('button'); b.type = 'button'; b.textContent = o.textContent; b.dataset.v = o.value; b.onclick = () => { sel.value = b.dataset.v; paint(); haptic(); document.dispatchEvent(new Event('input')); }; seg.appendChild(b); });
+  sel.parentNode.appendChild(seg); paint();
+});
 $('loopPP').classList.toggle('on', state.pingpong); $('loopFw').classList.toggle('on', !state.pingpong); $('dither').classList.toggle('on', state.dither);
 Array.from($('looks').children).forEach((c) => c.classList.toggle('on', c.textContent === state.look));
 document.addEventListener('input', () => setTimeout(save, 0)); document.addEventListener('click', () => setTimeout(save, 0));
